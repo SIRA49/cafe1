@@ -49,11 +49,11 @@
 
 <?php
   if (empty($tid) == true) {
-    $sql = "SELECT bean_name, type_name, dayfee, main_image, product_no
+    $sql = "SELECT bean_name, type_name,price, main_image, product_no
       FROM cafe, cafe_type 
       WHERE cafe.type_id = cafe_type.type_id";
   } else {
-    $sql = "SELECT bean_name, type_name, dayfee, main_image, product_no
+    $sql = "SELECT bean_name, type_name, price, main_image, product_no
       FROM cafe, cafe_type 
       WHERE cafe.type_id = cafe_type.type_id
       AND cafe.type_id = {$tid}"; 
@@ -61,7 +61,7 @@
   $result = mysqli_query($link, $sql);
   $cnt = mysqli_num_rows($result);
   if ($cnt == 0) {
-    echo "<b>ご指定のお部屋は只今準備ができておりません</b>";  
+    echo "<b>商品の準備ができておりません</b>";  
 } else {
 	?>
 			  <h3>自慢のコーヒー豆をご紹介</h3>
@@ -79,10 +79,10 @@
 		  echo "<tr>";
 		  echo "<td>{$row['bean_name']}</td>";
 		  echo "<td>{$row['type_name']}</td>";
-		  $roomfee = number_format($row['dayfee']);
-		  echo "<td class='number'>&yen; {$roomfee}</td>";
+		  $pri = number_format($row['price']);
+		  echo "<td class='number'>&yen; {$pri}</td>";
 		  echo "<td><img class='small' src='./images/{$row['main_image']}'></td>";
-		  echo "<td><a href='./roomDetail.php?rno={$row['product_no']}'>詳細</a></td>";
+		  echo "<td><a href='./menuDetail.php?rno={$row['product_no']}'>購入</a></td>";
 		  echo "</tr>";
 		}
 	  }
